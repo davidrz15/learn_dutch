@@ -166,7 +166,7 @@
     <div class="container">
         <div class="flag">🇳🇱</div>
         <h1>Code+ Learn Dutch</h1>
-        <p class="subtitle">Interactive Vocabulary Flashcards <a href="https://nt2plus.nl/material/student" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none; font-weight: 600;">from NT2</a></p>
+        <p class="subtitle">Interactive Vocabulary Flashcards</p>
 
         <div class="selector-group">
             <label for="deel-select">Select Deel (Part):</label>
@@ -181,15 +181,17 @@
             <label for="thema-select">Select Thema (Theme):</label>
             <select id="thema-select">
                 <option value="1">Thema 1</option>
-                <option value="2" disabled>Thema 2 (Coming Soon)</option>
-                <option value="3" disabled>Thema 3 (Coming Soon)</option>
-                <option value="4" disabled>Thema 4 (Coming Soon)</option>
-                <option value="5" disabled>Thema 5 (Coming Soon)</option>
+                <option value="2">Thema 2</option>
+                <option value="3">Thema 3</option>
+                <option value="4">Thema 4</option>
+                <option value="5">Thema 5</option>
+                <option value="6">Thema 6</option>
+                <option value="7">Thema 7</option>
             </select>
         </div>
 
         <div class="unavailable-message" id="unavailable-message">
-            ⚠️ This lesson is not yet available. Only Deel 1, Thema 1 is currently ready.
+            ⚠️ This lesson is not yet available.
         </div>
 
         <button class="start-button" id="start-button">Start Learning →</button>
@@ -215,10 +217,13 @@
         // Map of available lessons
         const availableLessons = {
             '1': {
-                '1': 'dutch-vocab-flashcards 1.1.html'
-                // Add more themes as they become available:
-                // '2': 'dutch-vocab-flashcards 1.2.html',
-                // '3': 'dutch-vocab-flashcards 1.3.html',
+                '1': 'dutch-vocab-flashcards 1.1.html',
+                '2': 'dutch-vocab-flashcards 1.2.html',
+                '3': 'dutch-vocab-flashcards 1.3.html',
+                '4': 'dutch-vocab-flashcards 1.4.html',
+                '5': 'dutch-vocab-flashcards 1.5.html',
+                '6': 'dutch-vocab-flashcards 1.6.html',
+                '7': 'dutch-vocab-flashcards 1.7.html'
             }
             // Add more deels as they become available:
             // '2': {

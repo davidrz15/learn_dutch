@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dutch Vocabulary - Code+ Deel 1 Thema 3</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 20px; }
+        .container { background: white; border-radius: 20px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3); padding: 40px; max-width: 600px; width: 100%; }
+        h1 { text-align: center; color: #333; margin-bottom: 30px; font-size: 28px; }
+        .section-selector { margin-bottom: 30px; }
+        .section-selector label { display: block; margin-bottom: 10px; color: #555; font-weight: 600; }
+        .section-selector select { width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 10px; font-size: 16px; background: white; cursor: pointer; transition: border-color 0.3s; }
+        .section-selector select:hover, .section-selector select:focus { border-color: #667eea; outline: none; }
+        .card-container { perspective: 1000px; margin-bottom: 30px; }
+        .card { width: 100%; height: 300px; position: relative; transform-style: preserve-3d; transition: transform 0.6s; cursor: pointer; }
+        .card.flipped { transform: rotateY(180deg); }
+        .card-face { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 15px; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 30px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); }
+        .card-front { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+        .card-back { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white; transform: rotateY(180deg); }
+        .card-label { font-size: 14px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; opacity: 0.9; }
+        .card-word { font-size: 36px; font-weight: bold; text-align: center; line-height: 1.2; }
+        .card-extra { font-size: 16px; margin-top: 15px; opacity: 0.9; font-style: italic; }
+        .controls { display: flex; justify-content: space-between; align-items: center; gap: 15px; }
+        button { padding: 15px 30px; border: none; border-radius: 10px; font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.3s; flex: 1; }
+        .btn-prev, .btn-next { background: #667eea; color: white; }
+        .btn-prev:hover, .btn-next:hover { background: #5568d3; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4); }
+        .btn-prev:disabled, .btn-next:disabled { background: #ccc; cursor: not-allowed; transform: none; }
+        .counter { text-align: center; color: #666; font-size: 18px; font-weight: 600; padding: 0 20px; }
+        .hint { text-align: center; color: #999; font-size: 14px; margin-top: 20px; font-style: italic; }
+        .learned-controls { display: flex; justify-content: center; gap: 15px; margin-top: 20px; }
+        .btn-learned { background: #10b981; color: white; padding: 12px 25px; border: none; border-radius: 10px; font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.3s; }
+        .btn-learned:hover { background: #059669; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(16, 185, 129, 0.4); }
+        .btn-shuffle { background: #f59e0b; color: white; padding: 12px 25px; border: none; border-radius: 10px; font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.3s; }
+        .btn-shuffle:hover { background: #d97706; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(245, 158, 11, 0.4); }
+        .btn-reset { background: #ef4444; color: white; padding: 12px 25px; border: none; border-radius: 10px; font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.3s; }
+        .btn-reset:hover { background: #dc2626; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(239, 68, 68, 0.4); }
+        .stats { text-align: center; margin-top: 20px; padding: 15px; background: #f3f4f6; border-radius: 10px; }
+        .stats-text { color: #666; font-size: 14px; }
+        .stats-learned { color: #10b981; font-weight: 600; }
+        @media (max-width: 500px) { .container { padding: 25px; } .card { height: 250px; } .card-word { font-size: 28px; } button { padding: 12px 20px; font-size: 14px; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Dutch Vocabulary Flashcards</h1>
+        <div style="text-align: center; color: #667eea; font-weight: 600; font-size: 16px; margin-bottom: 20px;">Code+ Deel 1 – Thema 3</div>
+        <div class="section-selector">
+            <label for="section-select">Choose a section:</label>
+            <select id="section-select">
+                <option value="Intro">Intro</option>
+                <option value="Taak 1">Taak 1</option>
+                <option value="Taak 2">Taak 2</option>
+                <option value="Taak 3">Taak 3</option>
+                <option value="Taak 4">Taak 4</option>
+                <option value="Slot">Slot</option>
+                <option value="Lezen">Lezen</option>
+            </select>
+        </div>
+        <div class="card-container">
+            <div class="card" id="flashcard">
+                <div class="card-face card-front">
+                    <div class="card-label">Dutch</div>
+                    <div class="card-word" id="dutch-word"></div>
+                    <div class="card-extra" id="dutch-extra"></div>
+                </div>
+                <div class="card-face card-back">
+                    <div class="card-label">English</div>
+                    <div class="card-word" id="english-word"></div>
+                </div>
+            </div>
+        </div>
+        <div class="controls">
+            <button class="btn-prev" id="prev-btn">← Previous</button>
+            <div class="counter" id="counter">1 / 1</div>
+            <button class="btn-next" id="next-btn">Next →</button>
+        </div>
+        <div class="learned-controls">
+            <button class="btn-learned" id="learned-btn">✓ Mark as Learned</button>
+            <button class="btn-shuffle" id="shuffle-btn">Shuffle</button>
+            <button class="btn-reset" id="reset-btn">Reset Learned</button>
+        </div>
+        <div class="stats">
+            <p class="stats-text">Learned: <span class="stats-learned" id="learned-count">0</span> / <span id="total-count">0</span></p>
+        </div>
+        <p class="hint">Click the card to flip it - Use arrow keys to navigate</p>
+    </div>
+    <script>
+        const vocabulary = {
+            "Intro": [
+                { dutch: "bakker, de", english: "baker" },
+                { dutch: "bezorgen", english: "to deliver" },
+                { dutch: "brood, het", english: "bread, loaf" },
+                { dutch: "glas (glaasje)", english: "glass" },
+                { dutch: "kopen", english: "to buy" },
+                { dutch: "wijn, de", english: "wine" }
+            ],
+            "Taak 1": [
+                { dutch: "aardappel, de", english: "potato" },
+                { dutch: "appel, de", english: "apple" },
+                { dutch: "banaan, de", english: "banana" },
+                { dutch: "bijvoorbeeld", english: "for example" },
+                { dutch: "boodschap, de (boodschappen)", english: "shopping, purchases, groceries" },
+                { dutch: "drinken", english: "to drink" },
+                { dutch: "fruit, het", english: "fruit" },
+                { dutch: "gehakt, het", english: "minced meat" },
+                { dutch: "gek zijn op", english: "to be crazy about" },
+                { dutch: "groente, de", english: "vegetables" },
+                { dutch: "hagelslag, de", english: "chocolate sprinkles" },
+                { dutch: "hartig", english: "savoury" },
+                { dutch: "heerlijk", english: "delightful, lovely, delicious" },
+                { dutch: "houden van", english: "to like" },
+                { dutch: "jam, de", english: "jam" },
+                { dutch: "kaas, de", english: "cheese" },
+                { dutch: "kip, de", english: "chicken" },
+                { dutch: "koekje, het", english: "biscuit" },
+                { dutch: "kosten", english: "to cost" },
+                { dutch: "lekker", english: "nice, good, tasty" },
+                { dutch: "lekker vinden", english: "to like" },
+                { dutch: "lusten", english: "to like" },
+                { dutch: "maken", english: "to make" },
+                { dutch: "melk, de", english: "milk" },
+                { dutch: "mogen (mag)", english: "can, may" },
+                { dutch: "nooit", english: "never" },
+                { dutch: "ontbijt, het", english: "breakfast" },
+                { dutch: "patat, de", english: "chips" },
+                { dutch: "pinda, de", english: "peanut" },
+                { dutch: "praten (over)", english: "to talk (about)" },
+                { dutch: "rijst, de", english: "rice" },
+                { dutch: "school, de", english: "school" },
+                { dutch: "sperzieboon, de", english: "French bean, green bean" },
+                { dutch: "thee, de", english: "tea" },
+                { dutch: "vegetariër, de", english: "vegetarian" },
+                { dutch: "vies", english: "nasty, disgusting" },
+                { dutch: "vis, de", english: "fish" },
+                { dutch: "vlees, het", english: "meat" },
+                { dutch: "vleeswaren, de", english: "cold cuts" },
+                { dutch: "water, het", english: "water" },
+                { dutch: "zo (ik houd niet zo ...)", english: "so (I don't like ... too much)" },
+                { dutch: "zoet", english: "sweet" },
+                { dutch: "zout", english: "salt(y)" }
+            ],
+            "Taak 2": [
+                { dutch: "alstublieft", english: "please / here you are (formal)" },
+                { dutch: "beurt, de", english: "turn" },
+                { dutch: "bruin", english: "brown (loaf)" },
+                { dutch: "champignon, de", english: "mushroom" },
+                { dutch: "duur", english: "expensive" },
+                { dutch: "ei, het (eieren)", english: "egg (eggs)" },
+                { dutch: "goedkoop", english: "cheap" },
+                { dutch: "graag (twee koffie graag)", english: "please (two coffees please)" },
+                { dutch: "gram", english: "gram(me)" },
+                { dutch: "kilo, de", english: "kilo" },
+                { dutch: "markt, de", english: "market" },
+                { dutch: "niets", english: "nothing" },
+                { dutch: "ons, het", english: "a hundred grammes" },
+                { dutch: "pond, het", english: "pound (500 grammes)" },
+                { dutch: "slager, de", english: "butcher" },
+                { dutch: "snijden (gesneden brood)", english: "to cut, to slice (sliced bread)" },
+                { dutch: "supermarkt, de", english: "supermarket" },
+                { dutch: "tas, de (tasje erbij?)", english: "bag (would you like a bag?)" },
+                { dutch: "tomaat, de", english: "tomato" },
+                { dutch: "verkoper, de", english: "salesman, woman, shop assistant" },
+                { dutch: "wit", english: "white" }
+            ],
+            "Taak 3": [
+                { dutch: "aanbieden", english: "to offer" },
+                { dutch: "alsjeblieft", english: "please / here you are (informal)" },
+                { dutch: "bier, het (biertje)", english: "beer" },
+                { dutch: "dorst, de (dorst hebben)", english: "thirst (to be thirsty)" },
+                { dutch: "fris, het", english: "soft drink" },
+                { dutch: "gezellig", english: "pleasant, enjoyable, comfortable" },
+                { dutch: "halen", english: "to get" },
+                { dutch: "iets", english: "something, anything" },
+                { dutch: "koffie, de", english: "coffee" },
+                { dutch: "kop, de", english: "cup" },
+                { dutch: "proost", english: "cheers" },
+                { dutch: "wat (iets)", english: "here: something" },
+                { dutch: "zin hebben in", english: "to feel like" }
+            ],
+            "Taak 4": [
+                { dutch: "avondeten, het", english: "dinner, supper" },
+                { dutch: "bestellen", english: "to order" },
+                { dutch: "boterham, de", english: "sandwich, slice of bread" },
+                { dutch: "denken", english: "to think" },
+                { dutch: "eten, het", english: "food" },
+                { dutch: "klant, de", english: "customer, client" },
+                { dutch: "klein", english: "small" },
+                { dutch: "lunch, de", english: "lunch" },
+                { dutch: "meestal", english: "mostly, usually" },
+                { dutch: "salami, de", english: "salami" },
+                { dutch: "soort, de", english: "kind, type (of)" },
+                { dutch: "tussen", english: "between" },
+                { dutch: "warm", english: "warm, hot" }
+            ],
+            "Slot": [
+                { dutch: "band, de", english: "relationship" },
+                { dutch: "bijzonder", english: "special" },
+                { dutch: "gerecht, het", english: "meal, dish" },
+                { dutch: "meenemen", english: "bring, take along" },
+                { dutch: "mooi", english: "beautiful, nice" },
+                { dutch: "pannenkoek", english: "pancake" }
+            ],
+            "Lezen": [
+                { dutch: "alles", english: "all" }
+            ]
+        };
+
+        let currentSection = "Intro";
+        let currentIndex = 0;
+        let isFlipped = false;
+        let learnedWords = new Set();
+        let currentDeck = [];
+        let originalVocabulary = {};
+        for (let section in vocabulary) { originalVocabulary[section] = [...vocabulary[section]]; }
+        const flashcard = document.getElementById('flashcard');
+        const dutchWord = document.getElementById('dutch-word');
+        const dutchExtra = document.getElementById('dutch-extra');
+        const englishWord = document.getElementById('english-word');
+        const counter = document.getElementById('counter');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const sectionSelect = document.getElementById('section-select');
+        const learnedBtn = document.getElementById('learned-btn');
+        const shuffleBtn = document.getElementById('shuffle-btn');
+        const resetBtn = document.getElementById('reset-btn');
+        const learnedCount = document.getElementById('learned-count');
+        const totalCount = document.getElementById('total-count');
+        function loadLearnedWords() { const saved = localStorage.getItem('dutchLearnedWords_Deel1_Thema3'); if (saved) { learnedWords = new Set(JSON.parse(saved)); } }
+        function saveLearnedWords() { localStorage.setItem('dutchLearnedWords_Deel1_Thema3', JSON.stringify([...learnedWords])); }
+        function shuffleArray(array) { const shuffled = [...array]; for (let i = shuffled.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]; } return shuffled; }
+        function initializeDeck() { const allWords = originalVocabulary[currentSection]; currentDeck = shuffleArray(allWords.filter(word => !learnedWords.has(`${currentSection}:${word.dutch}`))); currentIndex = 0; }
+        function updateStats() { const allWords = originalVocabulary[currentSection]; const learned = allWords.filter(word => learnedWords.has(`${currentSection}:${word.dutch}`)).length; learnedCount.textContent = learned; totalCount.textContent = allWords.length; }
+        function updateCard() { if (currentDeck.length === 0) { dutchWord.textContent = "All words learned!"; dutchExtra.textContent = ""; englishWord.textContent = "Great job!"; counter.textContent = `0 / 0`; prevBtn.disabled = true; nextBtn.disabled = true; learnedBtn.disabled = true; updateStats(); return; } const currentWord = currentDeck[currentIndex]; const dutchParts = currentWord.dutch.split('('); const mainDutch = dutchParts[0].trim(); const extraDutch = dutchParts[1] ? '(' + dutchParts[1] : ''; dutchWord.textContent = mainDutch; dutchExtra.textContent = extraDutch; englishWord.textContent = currentWord.english; counter.textContent = `${currentIndex + 1} / ${currentDeck.length}`; prevBtn.disabled = currentIndex === 0; nextBtn.disabled = currentIndex === currentDeck.length - 1; learnedBtn.disabled = false; if (isFlipped) { flashcard.classList.remove('flipped'); isFlipped = false; } updateStats(); }
+        function flipCard() { flashcard.classList.toggle('flipped'); isFlipped = !isFlipped; }
+        function nextCard() { if (currentIndex < currentDeck.length - 1) { currentIndex++; updateCard(); } }
+        function prevCard() { if (currentIndex > 0) { currentIndex--; updateCard(); } }
+        function changeSection() { currentSection = sectionSelect.value; initializeDeck(); updateCard(); }
+        function markAsLearned() { if (currentDeck.length === 0) return; const currentWord = currentDeck[currentIndex]; const wordKey = `${currentSection}:${currentWord.dutch}`; learnedWords.add(wordKey); saveLearnedWords(); currentDeck.splice(currentIndex, 1); if (currentIndex >= currentDeck.length && currentDeck.length > 0) { currentIndex = currentDeck.length - 1; } updateCard(); }
+        function shuffleDeck() { if (currentDeck.length === 0) return; currentDeck = shuffleArray(currentDeck); currentIndex = 0; updateCard(); }
+        function resetLearned() { if (confirm('Are you sure you want to reset all learned words for this section?')) { const allWords = originalVocabulary[currentSection]; allWords.forEach(word => { learnedWords.delete(`${currentSection}:${word.dutch}`); }); saveLearnedWords(); initializeDeck(); updateCard(); } }
+        flashcard.addEventListener('click', flipCard);
+        nextBtn.addEventListener('click', nextCard);
+        prevBtn.addEventListener('click', prevCard);
+        sectionSelect.addEventListener('change', changeSection);
+        learnedBtn.addEventListener('click', markAsLearned);
+        shuffleBtn.addEventListener('click', shuffleDeck);
+        resetBtn.addEventListener('click', resetLearned);
+        document.addEventListener('keydown', (e) => { if (e.key === 'ArrowRight') nextCard(); if (e.key === 'ArrowLeft') prevCard(); if (e.key === ' ') { e.preventDefault(); flipCard(); } if (e.key === 'l' || e.key === 'L') { markAsLearned(); } });
+        loadLearnedWords();
+        initializeDeck();
+        updateCard();
+    </script>
+</body>
+</html>
