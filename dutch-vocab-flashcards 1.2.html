@@ -83,6 +83,10 @@
             transform: rotateY(180deg);
         }
 
+        .card.no-transition {
+            transition: none !important;
+        }
+
         .card-face {
             position: absolute;
             width: 100%;
@@ -539,8 +543,13 @@
             nextBtn.disabled = currentIndex === currentDeck.length - 1;
             learnedBtn.disabled = false;
 
+            // Reset flip state without animation
             if (isFlipped) {
+                flashcard.classList.add('no-transition');
                 flashcard.classList.remove('flipped');
+                // Force reflow to apply changes immediately
+                flashcard.offsetHeight;
+                flashcard.classList.remove('no-transition');
                 isFlipped = false;
             }
 
