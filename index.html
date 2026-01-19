@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code+ Learn Dutch - Vocabulary Flashcards</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 50px 40px;
+            max-width: 600px;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 32px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 40px;
+            font-size: 16px;
+        }
+
+        .flag {
+            font-size: 48px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .selector-group {
+            margin-bottom: 30px;
+        }
+
+        .selector-group label {
+            display: block;
+            margin-bottom: 10px;
+            color: #555;
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .selector-group select {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 16px;
+            background: white;
+            cursor: pointer;
+            transition: border-color 0.3s;
+        }
+
+        .selector-group select:hover,
+        .selector-group select:focus {
+            border-color: #667eea;
+            outline: none;
+        }
+
+        .start-button {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 20px;
+        }
+
+        .start-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .start-button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .info-box {
+            background: #f3f4f6;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 30px;
+        }
+
+        .info-box h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .info-box p {
+            color: #666;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        .info-box ul {
+            margin-top: 10px;
+            margin-left: 20px;
+            color: #666;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .unavailable-message {
+            display: none;
+            background: #fef3c7;
+            border: 2px solid #f59e0b;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 15px;
+            color: #92400e;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .unavailable-message.show {
+            display: block;
+        }
+
+        @media (max-width: 500px) {
+            .container {
+                padding: 35px 25px;
+            }
+
+            h1 {
+                font-size: 26px;
+            }
+
+            .flag {
+                font-size: 36px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="flag">🇳🇱</div>
+        <h1>Code+ Learn Dutch</h1>
+        <p class="subtitle">Interactive Vocabulary Flashcards <a href="https://nt2plus.nl/material/student" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none; font-weight: 600;">from NT2</a></p>
+
+        <div class="selector-group">
+            <label for="deel-select">Select Deel (Part):</label>
+            <select id="deel-select">
+                <option value="1">Deel 1</option>
+                <option value="2" disabled>Deel 2 (Coming Soon)</option>
+                <option value="3" disabled>Deel 3 (Coming Soon)</option>
+            </select>
+        </div>
+
+        <div class="selector-group">
+            <label for="thema-select">Select Thema (Theme):</label>
+            <select id="thema-select">
+                <option value="1">Thema 1</option>
+                <option value="2" disabled>Thema 2 (Coming Soon)</option>
+                <option value="3" disabled>Thema 3 (Coming Soon)</option>
+                <option value="4" disabled>Thema 4 (Coming Soon)</option>
+                <option value="5" disabled>Thema 5 (Coming Soon)</option>
+            </select>
+        </div>
+
+        <div class="unavailable-message" id="unavailable-message">
+            ⚠️ This lesson is not yet available. Only Deel 1, Thema 1 is currently ready.
+        </div>
+
+        <button class="start-button" id="start-button">Start Learning →</button>
+
+        <div class="info-box">
+            <h3>✨ Features</h3>
+            <ul>
+                <li>Interactive flip cards with Dutch and English</li>
+                <li>Track your progress - mark words as learned</li>
+                <li>Randomized word order for better learning</li>
+                <li>Works offline once loaded</li>
+                <li>Progress saved automatically</li>
+            </ul>
+        </div>
+
+        <div class="info-box" style="margin-top: 20px;">
+            <h3>📱 Pro Tip</h3>
+            <p>On mobile? Add this page to your home screen for quick access! In Safari, tap the share button and select "Add to Home Screen".</p>
+        </div>
+    </div>
+
+    <script>
+        // Map of available lessons
+        const availableLessons = {
+            '1': {
+                '1': 'dutch-vocab-flashcards 1.1.html'
+                // Add more themes as they become available:
+                // '2': 'dutch-vocab-flashcards 1.2.html',
+                // '3': 'dutch-vocab-flashcards 1.3.html',
+            }
+            // Add more deels as they become available:
+            // '2': {
+            //     '1': 'dutch-vocab-flashcards 2.1.html',
+            // }
+        };
+
+        const deelSelect = document.getElementById('deel-select');
+        const themaSelect = document.getElementById('thema-select');
+        const startButton = document.getElementById('start-button');
+        const unavailableMessage = document.getElementById('unavailable-message');
+
+        function checkAvailability() {
+            const selectedDeel = deelSelect.value;
+            const selectedThema = themaSelect.value;
+
+            // Check if the combination is available
+            if (availableLessons[selectedDeel] && availableLessons[selectedDeel][selectedThema]) {
+                startButton.disabled = false;
+                unavailableMessage.classList.remove('show');
+                return true;
+            } else {
+                startButton.disabled = true;
+                unavailableMessage.classList.add('show');
+                return false;
+            }
+        }
+
+        function startLesson() {
+            const selectedDeel = deelSelect.value;
+            const selectedThema = themaSelect.value;
+
+            if (availableLessons[selectedDeel] && availableLessons[selectedDeel][selectedThema]) {
+                const lessonFile = availableLessons[selectedDeel][selectedThema];
+                window.location.href = lessonFile;
+            }
+        }
+
+        // Event listeners
+        deelSelect.addEventListener('change', checkAvailability);
+        themaSelect.addEventListener('change', checkAvailability);
+        startButton.addEventListener('click', startLesson);
+
+        // Initial check
+        checkAvailability();
+    </script>
+</body>
+</html>
