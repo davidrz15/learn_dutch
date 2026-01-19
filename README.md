@@ -1,1 +1,1 @@
-A Claude generated vocabulary tool which takes the wordlists from **https://nt2plus.nl/material/student** PDFs and creates vocab lists which can be tested and worked through.
+A Claude generated vocabulary tool which takes the wordlists from PDFs and creates vocab lists which can be shuffled, marked as learned, and iterated upon.
