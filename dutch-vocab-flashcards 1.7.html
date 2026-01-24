@@ -40,19 +40,20 @@
         .stats { text-align: center; margin-top: 20px; padding: 15px; background: #f3f4f6; border-radius: 10px; }
         .stats-text { color: #666; font-size: 14px; }
         .stats-learned { color: #10b981; font-weight: 600; }
-        .btn-home { display: inline-block; background: #667eea; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.3s; margin-bottom: 20px; }
-        .btn-home:hover { background: #5568d3; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4); }
-        .home-container { text-align: center; margin-bottom: 10px; }
+        .btn-back { display: inline-flex; align-items: center; background: #667eea; color: white; padding: 6px 14px; border-radius: 6px; text-decoration: none; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.3s; white-space: nowrap; }
+        .btn-back:hover { background: #5568d3; transform: translateY(-1px); box-shadow: 0 3px 10px rgba(102, 126, 234, 0.4); }
+        .subtitle-container { display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 30px; flex-wrap: wrap; }
+        .subtitle-text { color: #667eea; font-weight: 600; font-size: 16px; }
         @media (max-width: 500px) { .container { padding: 25px; } .card { height: 250px; } .card-word { font-size: 28px; } button { padding: 12px 20px; font-size: 14px; } }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="home-container">
-            <a href="index.html" class="btn-home">← Back to Home</a>
-        </div>
         <h1>Dutch Vocabulary Flashcards</h1>
-        <div style="text-align: center; color: #667eea; font-weight: 600; font-size: 16px; margin-bottom: 20px;">Code+ Deel 1 – Thema 7</div>
+        <div class="subtitle-container">
+            <a href="index.html" class="btn-back">← Back</a>
+            <span class="subtitle-text">Code+ Deel 1 – Thema 7</span>
+        </div>
         <div class="section-selector">
             <label for="section-select">Choose a section:</label>
             <select id="section-select">
