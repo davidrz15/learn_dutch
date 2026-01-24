@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Button Mockup - Inline Design</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: white;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+
+        /* Inline subtitle with back button */
+        .subtitle-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            background: #667eea;
+            color: white;
+            padding: 6px 14px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .btn-back:hover {
+            background: #5568d3;
+            transform: translateY(-1px);
+            box-shadow: 0 3px 10px rgba(102, 126, 234, 0.4);
+        }
+
+        .subtitle-text {
+            color: #667eea;
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        /* Demo content */
+        .demo-box {
+            background: #f3f4f6;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .demo-text {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .comparison {
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+
+        .comparison-label {
+            font-weight: 600;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 500px) {
+            .container {
+                padding: 25px;
+            }
+
+            .subtitle-container {
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🇳🇱 Dutch Vocabulary Flashcards</h1>
+
+        <div class="subtitle-container">
+            <a href="index.html" class="btn-back">← Back</a>
+            <span class="subtitle-text">Code+ Deel 1 – Thema 1</span>
+        </div>
+
+        <div class="demo-box">
+            <p class="demo-text"><strong>📋 This is a mockup showing the new inline "Back" button design</strong></p>
+
+            <div class="comparison">
+                <div class="comparison-label">✅ NEW DESIGN (shown above):</div>
+                <p style="color: #666; font-size: 13px; margin-top: 8px;">
+                    Small "Back" button inline with the theme text<br>
+                    Both centered together on the same line<br>
+                    More compact and integrated with the page header
+                </p>
+            </div>
+
+            <div class="comparison">
+                <div class="comparison-label">❌ OLD DESIGN:</div>
+                <p style="color: #666; font-size: 13px; margin-top: 8px;">
+                    "← Back to Home" button centered above everything<br>
+                    Separated from the rest of the content<br>
+                    Takes up more vertical space
+                </p>
+            </div>
+
+            <p style="color: #10b981; font-weight: 600; margin-top: 15px; font-size: 14px;">
+                ✓ The back button is smaller, more subtle, and flows with the theme title<br>
+                ✓ Saves vertical space by being inline<br>
+                ✓ Still easy to click and hover effect works great
+            </p>
+        </div>
+
+        <p style="text-align: center; color: #999; font-size: 13px; margin-top: 20px;">
+            Open this file in your browser to see how it looks and test the hover effect on the Back button
+        </p>
+    </div>
+</body>
+</html>
